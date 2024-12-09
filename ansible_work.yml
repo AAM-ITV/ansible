@@ -12,7 +12,7 @@
 
   - name: clone repo
     git:
-      repo: https://github.com/AAM-ITV/exam.git
+      repo: https://github.com/AAM-ITV/docker-1work.git
       dest: /tmp/project
 
   - name: login to dockerhub
