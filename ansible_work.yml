@@ -12,8 +12,8 @@
 
   - name: clone repo
     git:
-      repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-      dest: /tmp/hello
+      repo: https://github.com/AAM-ITV/exam.git
+      dest: /tmp/project
 
   - name: login to dockerhub
     docker_login:
@@ -23,7 +23,7 @@
   - name: build project
     docker _image:
       build:
-        path: /tmp/hello
+        path: /tmp/project
       name: aamitv/ansiblehello
       tag: latest
       push: yes
