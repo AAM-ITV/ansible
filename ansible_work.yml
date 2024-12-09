@@ -1,0 +1,58 @@
+- name: Build app on build_node
+  hosts: build_node
+  become: yes
+
+
+
+  tasks:
+  - name: install docker
+    apt:
+      name: docker.io
+      state: present
+
+  - name: clone repo
+    git:
+      repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+      dest: /tmp/hello
+
+  - name: login to dockerhub
+    docker_login:
+      username: your_username
+      password: your_password
+
+  - name: build project
+    docker _image:
+      build:
+        path: /tmp/hello
+      name: aamitv/ansiblehello
+      tag: latest
+      push: yes
+      source: build
+
+  - name: log out of DockerHub
+    docker_login:
+      state: absent
+
+
+
+- name: Deploy app on prod_node
+  hosts: prod_node
+  become: yes
+
+  tasks:
+  - name: pull docker image
+    docker_image:
+      name: aamitv/ansiblehello
+      source: pull 
+  
+  - name: create container
+    docker_container:
+      name: ansible-app
+      image: aamitv/ansiblehello
+      ports:
+        - "8080:8080"
+
+  - name: Ensure docker container is started
+    docker_container:
+      name: ansible-app
+      state: started
