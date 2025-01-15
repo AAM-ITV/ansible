@@ -1,0 +1,6 @@
+---
+# vars file for prod
+item:
+  - docker.io
+  - tree
+

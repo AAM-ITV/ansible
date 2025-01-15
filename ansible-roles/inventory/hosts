@@ -1,0 +1,4 @@
+[build_node]
+51.250.35.84 ansible_user=youruser
+[prod_node]
+51.250.45.190 ansible_user=youruser

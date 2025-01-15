@@ -1,0 +1,21 @@
+---
+- name: Update apt cache on Build Node
+  apt:
+    update_cache: yes
+
+- name: install packages and build application
+  apt:
+    name: "{{item}}"
+    state: present
+
+- name: Pull Docker image from Docker Hub
+  shell: docker pull yourrepository
+
+- name: Stop and remove existing container if it exists
+  shell: |
+    docker stop finalapp || true
+    docker rm finalapp || true
+
+- name: Run Docker container
+  shell: |
+    docker run -d --name finalapp -p 8080:8080 --restart=always aamitv/myapp:latest

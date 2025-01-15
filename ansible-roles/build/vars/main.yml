@@ -1,0 +1,6 @@
+---
+# vars file for build
+item:
+  - docker.io
+  - tree
+

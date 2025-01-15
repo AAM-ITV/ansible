@@ -1,0 +1,27 @@
+---
+- name: Update apt cache on Build Node
+  apt:
+    update_cache: yes
+
+- name: install packages and build application
+  apt:
+    name: "{{item}}"
+    state: present
+
+- name: Clone the repository
+  git:
+   repo: 'https://github.com/AAM-ITV/exam.git'
+   dest: /home/project
+
+- name: Build Docker image
+  shell: |
+    docker build -t aamitv/roles:latest /home/project
+
+- name: Login to Docker Hub
+  shell: |
+    echo "yourpassword" | docker login -u "yourlogin" --password-stdin
+  no_log: true
+
+- name: Push Docker image to Docker Hub
+  shell: |
+    docker push yourrepository:latest

@@ -1,0 +1,16 @@
+---
+- name: configuration roles for build node
+  hosts: build_node
+  become: yes
+  
+  roles:
+   - build
+
+- name: configuration roles for prod node
+  hosts: prod_node
+  become: yes
+  
+  roles:
+   - prod
+
+
